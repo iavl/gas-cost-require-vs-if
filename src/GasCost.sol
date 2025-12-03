@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.26;
+pragma solidity 0.8.27;
 
 contract GasCost {
     uint256 public number;
@@ -8,14 +8,10 @@ contract GasCost {
     error NumberTooSmall();
     error NumberTooLarge();
 
-    // Using if revert with custom error (simulating require behavior)
+    // Using require with custom error
     function setNumberWithRequire(uint256 newNumber) public {
-        if (newNumber == 0) {
-            revert NumberTooSmall();
-        }
-        if (newNumber >= 1000) {
-            revert NumberTooLarge();
-        }
+        require(newNumber != 0, NumberTooSmall());
+        require(newNumber < 1000, NumberTooLarge());
         number = newNumber;
     }
 

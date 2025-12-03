@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.26;
+pragma solidity 0.8.27;
 
 import {Test, console} from "forge-std/Test.sol";
 import {GasCost} from "../src/GasCost.sol";
@@ -9,29 +9,6 @@ contract GasCostTest is Test {
 
     function setUp() public {
         gasCost = new GasCost();
-    }
-
-    // Comparison test: gas consumption in success case
-    function testCompareSuccess() public {
-        // Test require
-        gasCost.reset();
-        uint256 gasBefore1 = gasleft();
-        gasCost.setNumberWithRequire(100);
-        uint256 gasUsedRequire = gasBefore1 - gasleft();
-
-        // Test if revert
-        gasCost.reset();
-        uint256 gasBefore2 = gasleft();
-        gasCost.setNumberWithIfRevert(100);
-        uint256 gasUsedIfRevert = gasBefore2 - gasleft();
-
-        console.log("=== Gas Comparison (Success Case) ===");
-        console.log("Require gas used:", gasUsedRequire);
-        console.log("If revert gas used:", gasUsedIfRevert);
-        console.log(
-            "Difference:",
-            gasUsedRequire > gasUsedIfRevert ? gasUsedRequire - gasUsedIfRevert : gasUsedIfRevert - gasUsedRequire
-        );
     }
 
     // Comparison test: gas consumption in fail case (number too small)

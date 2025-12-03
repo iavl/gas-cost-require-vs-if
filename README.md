@@ -1,30 +1,60 @@
 # Gas Cost Comparison: require vs if revert
 
-这个项目用于对比 Solidity 中 `require` 和 `if revert` 两种错误处理方式的 gas 消耗情况。
+This project compares the gas consumption of two error handling approaches in Solidity: `require` and `if revert`.
 
-## 项目说明
+## Project Description
 
-本项目实现了以下对比：
+This project implements the following comparisons:
 
-1. **require + 字符串错误** vs **if revert + 字符串错误**
-2. **字符串错误** vs **自定义错误（Custom Error）**
+1. **require + string error** vs **if revert + string error**
+2. **String error** vs **Custom Error**
 
-### 合约功能
+### Contract Functions
 
-`GasCost.sol` 合约包含以下函数：
+The `GasCost.sol` contract contains the following functions:
 
-- `setNumberWithRequire()`: 使用 `require` 进行条件检查（字符串错误）
-- `setNumberWithIfRevert()`: 使用 `if revert` 进行条件检查（字符串错误）
-- `setNumberWithIfRevertCustomError()`: 使用 `if revert` 进行条件检查（自定义错误）
+- `setNumberWithRequire()`: Uses `require` for condition checking (string error)
+- `setNumberWithIfRevert()`: Uses `if revert` for condition checking (string error)
+- `setNumberWithIfRevertCustomError()`: Uses `if revert` for condition checking (custom error)
 
-### 测试覆盖
+### Test Coverage
 
-测试文件 `test/GasCost.t.sol` 包含以下测试场景：
+The test file `test/GasCost.t.sol` includes the following test scenarios:
 
-- 成功情况下的 gas 消耗对比
-- 第一个条件失败时的 gas 消耗对比
-- 第二个条件失败时的 gas 消耗对比
-- 字符串错误 vs 自定义错误的 gas 消耗对比
+- Gas consumption comparison in success cases
+- Gas consumption comparison when the first condition fails
+- Gas consumption comparison when the second condition fails
+- Gas consumption comparison: string error vs custom error
+
+## Usage
+
+### Build
+
+```shell
+$ forge build
+```
+
+### Run Tests
+
+Run all tests:
+```shell
+$ forge test
+```
+
+Run tests with gas report:
+```shell
+$ forge test --gas-report
+```
+
+Run tests with verbose output (including console.log):
+```shell
+$ forge test -vvv
+```
+
+Run a specific test:
+```shell
+$ forge test --match-test test_CompareGasCost_Success -vvv
+```
 
 ## Foundry
 
@@ -40,71 +70,3 @@ Foundry consists of:
 ## Documentation
 
 https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-运行所有测试：
-```shell
-$ forge test
-```
-
-运行测试并显示 gas 报告：
-```shell
-$ forge test --gas-report
-```
-
-运行测试并显示详细输出（包括 console.log）：
-```shell
-$ forge test -vvv
-```
-
-运行特定测试：
-```shell
-$ forge test --match-test test_CompareGasCost_Success -vvv
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
